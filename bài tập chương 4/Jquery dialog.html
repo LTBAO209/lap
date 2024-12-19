@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery Dialog</title>
+    <!-- Thêm CSS jQuery UI -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        #login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        #login-form input {
+            padding: 8px;
+            width: 95%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #login-form button {
+            padding: 8px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #login-form button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>jQuery Dialog Demo</h1>
+
+    <!-- Nút kích hoạt Dialog -->
+    <button id="error-btn">Hiển thị thông báo lỗi</button>
+    <button id="confirm-btn">Hiển thị xác nhận lỗi</button>
+    <button id="login-btn">Đăng nhập nhanh</button>
+
+    <!-- Dialog: Thông báo lỗi -->
+    <div id="error-dialog" title="Thông báo lỗi" style="display: none;">
+        <p>Đã xảy ra lỗi. Vui lòng thử lại!</p>
+    </div>
+
+    <!-- Dialog: Xác nhận lỗi -->
+    <div id="confirm-dialog" title="Xác nhận lỗi" style="display: none;">
+        <p>Bạn có chắc chắn muốn thực hiện hành động này không?</p>
+    </div>
+
+    <!-- Dialog: Đăng nhập nhanh -->
+    <div id="login-dialog" title="Đăng nhập nhanh" style="display: none;">
+        <form id="login-form">
+            <input type="text" placeholder="Tên đăng nhập" required>
+            <input type="password" placeholder="Mật khẩu" required>
+            <button type="submit">Đăng nhập</button>
+        </form>
+    </div>
+
+    <!-- Thêm thư viện jQuery và jQuery UI -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Dialog: Thông báo lỗi
+            $("#error-dialog").dialog({
+                autoOpen: false, // Không mở tự động
+                modal: true,     // Hiệu ứng mờ nền
+                buttons: {
+                    "Đóng": function() {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            // Dialog: Xác nhận lỗi
+            $("#confirm-dialog").dialog({
+                autoOpen: false,
+                modal: true,
+                buttons: {
+                    "Đồng ý": function() {
+                        alert("Hành động đã được xác nhận.");
+                        $(this).dialog("close");
+                    },
+                    "Hủy": function() {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            // Dialog: Đăng nhập nhanh
+            $("#login-dialog").dialog({
+                autoOpen: false,
+                modal: true,
+                width: 400, // Độ rộng của popup
+                buttons: {
+                    "Đóng": function() {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            // Kích hoạt các Dialog
+            $("#error-btn").click(function() {
+                $("#error-dialog").dialog("open");
+            });
+
+            $("#confirm-btn").click(function() {
+                $("#confirm-dialog").dialog("open");
+            });
+
+            $("#login-btn").click(function() {
+                $("#login-dialog").dialog("open");
+            });
+        });
+    </script>
+</body>
+</html>

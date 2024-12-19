@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery Datepicker</title>
+    <!-- Thêm CSS jQuery UI -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 250px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>jQuery Datepicker Demo</h1>
+    <!-- Các ô nhập liệu ngày/tháng -->
+    <input type="text" class="datepicker" placeholder="Chọn ngày"><br>
+    <input type="text" class="datepicker" placeholder="Chọn ngày"><br>
+    <input type="text" class="datepicker" placeholder="Chọn ngày"><br>
+
+    <!-- Thêm thư viện jQuery và jQuery UI -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+
+    <script>
+        // Áp dụng Datepicker cho tất cả các ô có class .datepicker
+        $(document).ready(function() {
+            $(".datepicker").datepicker({
+                dateFormat: "dd/mm/yy", // Định dạng ngày
+                changeMonth: true,      // Cho phép chọn tháng
+                changeYear: true        // Cho phép chọn năm
+            });
+        });
+    </script>
+</body>
+</html>

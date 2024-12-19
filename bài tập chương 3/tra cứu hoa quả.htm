@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tra cứu giá hoa quả</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        input, button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tra cứu giá hoa quả</h1>
+    <label for="ten_hoa_qua">Nhập tên hoa quả:</label>
+    <input type="text" id="ten_hoa_qua" placeholder="Ví dụ: Táo">
+    <button onclick="xemGia()">Xem giá</button>
+    <div id="result"></div>
+
+    <script>
+        function xemGia() {
+            // Lấy tên hoa quả từ ô nhập
+            const tenHoaQua = document.getElementById("ten_hoa_qua").value.trim();
+            let gia;
+
+            // Sử dụng switch-case để tra cứu giá
+            switch (tenHoaQua.toLowerCase()) {
+                case "ổi":
+                    gia = "20,000 VNĐ/kg";
+                    break;
+                case "dưa hấu":
+                    gia = "20,000 VNĐ/kg";
+                    break;
+                case "táo":
+                    gia = "30,000 VNĐ/kg";
+                    break;
+                case "cam":
+                    gia = "40,000 VNĐ/kg";
+                    break;
+                case "chôm chôm":
+                    gia = "40,000 VNĐ/kg";
+                    break;
+                case "măng cụt":
+                    gia = "50,000 VNĐ/kg";
+                    break;
+                default:
+                    gia = "Tìm không thấy";
+            }
+
+            // Hiển thị kết quả
+            const resultDiv = document.getElementById("result");
+            resultDiv.textContent = `Giá của ${tenHoaQua}: ${gia}`;
+        }
+    </script>
+</body>
+</html>

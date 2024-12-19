@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jquery Selector</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* Các kiểu dáng CSS */
+        .hidden {
+            display: none;
+        }
+        .error {
+            border: 2px solid red;
+            background-color: #ffe6e6;
+        }
+        table tr:hover {
+            background-color: #f0f0f0;
+        }
+        table tr {
+            background-color: #fafafa;
+        }
+        .region {
+            border: 1px dashed #000;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .notification {
+            color: blue;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Jquery Selector Example</h1>
+
+    <!-- 1. Div, P, H1 -->
+    <div id="content">
+        <p>Đoạn văn này có thể bị ẩn hoặc hiển thị.</p>
+        <h1>Tiêu đề chính</h1>
+        <div>Đây là một block khác.</div>
+    </div>
+    <button id="toggleBlocks">Ẩn/Hiện Blocks</button>
+
+    <!-- 2. Checkbox -->
+    <h2>Checkbox Example</h2>
+    <input type="checkbox" value="Option 1"> Option 1<br>
+    <input type="checkbox" value="Option 2" checked> Option 2<br>
+    <input type="checkbox" value="Option 3"> Option 3<br>
+    <button id="checkCheckboxes">Hiển thị giá trị checked</button>
+    <div id="checkboxValues"></div>
+
+    <!-- 3. Select Options -->
+    <h2>Select Country</h2>
+    <select id="country">
+        <option value="VN">Vietnam</option>
+        <option value="US">United States</option>
+        <option value="JP">Japan</option>
+    </select>
+    <button id="getOptions">Lấy các <option></button>
+    <div id="optionsResult"></div>
+
+    <!-- 4. Images in Div -->
+    <h2>Images in Menu</h2>
+    <div id="menu">
+        <img src="image1.jpg" alt="Image 1">
+        <img src="image2.jpg" alt="Image 2">
+    </div>
+    <button id="findImages">Tìm <img> trong menu</button>
+    <div id="imageResult"></div>
+
+    <!-- 5. Empty Input -->
+    <h2>Input Validation</h2>
+    <input type="text" placeholder="Input 1"><br>
+    <input type="text" placeholder="Input 2" value="Hello"><br>
+    <input type="text" placeholder="Input 3"><br>
+    <button id="validateInputs">Kiểm tra dữ liệu nhập</button>
+
+    <!-- 6. Change Styles -->
+    <h2>Bảng dữ liệu</h2>
+    <table>
+        <tr>
+            <td>Hàng 1</td>
+        </tr>
+        <tr>
+            <td>Hàng 2</td>
+        </tr>
+        <tr>
+            <td>Hàng 3</td>
+        </tr>
+    </table>
+    <div class="region">Khu vực 1</div>
+    <div class="region">Khu vực 2</div>
+    <div id="notification" class="notification">Thông báo hiện tại</div>
+
+    <script>
+        $(document).ready(function () {
+            // 1. Ẩn/Hiện các block (div, p, h1,...)
+            $("#toggleBlocks").click(function () {
+                $("#content div, #content p, #content h1").toggleClass("hidden");
+            });
+
+            // 2. Hiển thị giá trị của các checkbox đang được chọn
+            $("#checkCheckboxes").click(function () {
+                const checkedValues = $("input[type='checkbox']:checked")
+                    .map(function () {
+                        return $(this).val();
+                    })
+                    .get()
+                    .join(", ");
+                $("#checkboxValues").text("Đã chọn: " + checkedValues);
+            });
+
+            // 3. Lấy tất cả các thẻ <option> trong <select>
+            $("#getOptions").click(function () {
+                const options = $("#country option")
+                    .map(function () {
+                        return $(this).text();
+                    })
+                    .get()
+                    .join(", ");
+                $("#optionsResult").text("Các quốc gia: " + options);
+            });
+
+            // 4. Tìm các thẻ <img> trong <div id="menu">
+            $("#findImages").click(function () {
+                const imageCount = $("#menu img").length;
+                $("#imageResult").text("Tìm thấy " + imageCount + " hình ảnh trong menu.");
+            });
+
+            // 5. Kiểm tra các thẻ input chưa nhập dữ liệu
+            $("#validateInputs").click(function () {
+                $("input[type='text']").each(function () {
+                    if ($(this).val().trim() === "") {
+                        $(this).addClass("error");
+                    } else {
+                        $(this).removeClass("error");
+                    }
+                });
+            });
+
+            // 6. Thay đổi kiểu dáng
+            // a) Màu nền hàng bảng (hover đã có trong CSS ở trên)
+            $("table tr").css("background-color", "#f9f9f9");
+
+            // b) Đường kẻ và ảnh nền cho các vùng
+            $(".region").css({
+                "background-image": "url('background.jpg')",
+                "border": "2px solid blue",
+                "color": "green"
+            });
+
+            // c) Thay đổi nội dung thông báo
+            $("#notification").text("Thông báo đã được thay đổi!").css("color", "red");
+        });
+    </script>
+</body>
+</html>

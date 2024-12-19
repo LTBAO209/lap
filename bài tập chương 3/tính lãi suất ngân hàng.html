@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tính Lãi Suất Ngân Hàng</title>
+</head>
+<body>
+    <h2>Tính Lãi Suất Ngân Hàng</h2>
+    <form id="loanForm">
+        <label for="tienVay">Số tiền vay (triệu đồng):</label>
+        <input type="number" id="tienVay" required><br><br>
+
+        <label for="laiSuat">Lãi suất (%/năm):</label>
+        <input type="number" id="laiSuat" step="0.01" required><br><br>
+
+        <label for="soNam">Số năm:</label>
+        <input type="number" id="soNam" required><br><br>
+
+        <button type="button" onclick="tinhLai()">Tính</button>
+    </form>
+    <h3>Kết quả:</h3>
+    <p id="result"></p>
+
+    <script>
+        function tinhLai() {
+            // Lấy giá trị từ người dùng
+            const tienVay = parseFloat(document.getElementById('tienVay').value);
+            const laiSuat = parseFloat(document.getElementById('laiSuat').value) / 100; // Chuyển % thành thập phân
+            const soNam = parseInt(document.getElementById('soNam').value);
+
+            // Kiểm tra dữ liệu hợp lệ
+            if (isNaN(tienVay) || isNaN(laiSuat) || isNaN(soNam) || tienVay <= 0 || laiSuat <= 0 || soNam <= 0) {
+                document.getElementById('result').innerText = 'Vui lòng nhập các giá trị hợp lệ!';
+                return;
+            }
+
+            // Tính toán
+            const tienLai = tienVay * laiSuat * soNam;
+            const tongTien = tienVay + tienLai;
+
+            // Hiển thị kết quả
+            document.getElementById('result').innerText = 
+                `Tổng số tiền phải trả sau ${soNam} năm là: ${tongTien.toFixed(2)} triệu đồng`;
+        }
+    </script>
+</body>
+</html>

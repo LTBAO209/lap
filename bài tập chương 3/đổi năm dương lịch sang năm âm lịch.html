@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đổi năm dương lịch sang năm âm lịch</title>
+</head>
+<body>
+    <h2>Đổi năm dương lịch sang năm âm lịch</h2>
+    <form id="lunarYearForm">
+        <label for="year">Nhập năm dương lịch:</label>
+        <input type="number" id="year" required>
+        <button type="button" onclick="doiNamAmLich()">Chuyển đổi</button>
+    </form>
+    <h3>Kết quả:</h3>
+    <p id="result"></p>
+
+    <script>
+        function doiNamAmLich() {
+            // Lấy giá trị năm từ người dùng
+            const year = parseInt(document.getElementById('year').value);
+
+            // Kiểm tra tính hợp lệ
+            if (isNaN(year) || year <= 0) {
+                document.getElementById('result').innerText = "Vui lòng nhập một năm hợp lệ!";
+                return;
+            }
+
+            // Bảng tra cứu Can
+            const can = ["Canh", "Tân", "Nhâm", "Quý", "Giáp", "Ất", "Bính", "Đinh", "Mậu", "Kỷ"];
+            // Bảng tra cứu Chi
+            const chi = ["Thân", "Dậu", "Tuất", "Hợi", "Tý", "Sửu", "Dần", "Mão", "Thìn", "Tỵ", "Ngọ", "Mùi"];
+
+            // Tính Can và Chi
+            const canIndex = year % 10; // Lấy phần dư của phép chia 10
+            const chiIndex = year % 12; // Lấy phần dư của phép chia 12
+
+            // Kết quả
+            const namAmLich = `${can[canIndex]} ${chi[chiIndex]}`;
+            document.getElementById('result').innerText = `Năm ${year} trong âm lịch là: ${namAmLich}`;
+        }
+    </script>
+</body>
+</html>

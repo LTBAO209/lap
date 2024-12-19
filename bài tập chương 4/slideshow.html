@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        header {
+            margin: 20px 0;
+        }
+        h1 {
+            color: #00F;
+        }
+        .slideshow {
+            position: relative;
+            width: 800px;
+            margin: auto;
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #fff;
+        }
+        .slideshow_inner {
+            display: flex;
+            transition: margin-left 0.5s ease;
+        }
+        .slideshow_inner a {
+            min-width: 800px;
+            text-decoration: none;
+        }
+        .slideshow_inner img {
+            width: 100%;
+            height: auto;
+        }
+        .button {
+            margin: 10px 0;
+        }
+        .button input {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #00F;
+            color: white;
+            border-radius: 5px;
+        }
+        .button input:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>GALLERY</h1>
+    </header>
+    <section>
+        <div class="slideshow">
+            <div class="slideshow_inner">
+                <a href="images/big/porsche718_1.jpg">
+                    <img src="images/small/porsche718_1.jpg" alt="Image 1">
+                </a>
+                <a href="images/big/porsche718_2.jpg">
+                    <img src="images/small/porsche718_2.jpg" alt="Image 2">
+                </a>
+                <a href="images/big/porsche718_3.jpg">
+                    <img src="images/small/porsche718_3.jpg" alt="Image 3">
+                </a>
+                <a href="images/big/porsche718_4.jpg">
+                    <img src="images/small/porsche718_4.jpg" alt="Image 4">
+                </a>
+                <a href="images/big/porsche718_5.jpg">
+                    <img src="images/small/porsche718_5.jpg" alt="Image 5">
+                </a>
+            </div>
+        </div>
+        <div class="button">
+            <input type="button" id="btnLeft" value="<<">
+            <input type="button" id="btnRight" value=">>">
+        </div>
+    </section>
+
+    <script>
+        var position = 0; // Vị trí ban đầu của slideshow
+        var slideWidth = 800; // Chiều rộng mỗi slide (px)
+        var totalSlides = $(".slideshow_inner a").length; // Số lượng ảnh
+
+        $(document).ready(function () {
+            $("#btnLeft").click(function () {
+                // Nếu không phải là slide đầu tiên thì di chuyển sang trái
+                if (position > 0) {
+                    position--;
+                    $(".slideshow_inner").animate({
+                        marginLeft: -position * slideWidth
+                    }, 500);
+                }
+            });
+
+            $("#btnRight").click(function () {
+                // Nếu chưa phải slide cuối cùng thì di chuyển sang phải
+                if (position < totalSlides - 1) {
+                    position++;
+                    $(".slideshow_inner").animate({
+                        marginLeft: -position * slideWidth
+                    }, 500);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

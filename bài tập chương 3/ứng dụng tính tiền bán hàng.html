@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ứng dụng tính tiền bán hàng</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .btn {
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        .btn-ok {
+            background-color: #28a745;
+            color: white;
+        }
+        .btn-reset {
+            background-color: #dc3545;
+            color: white;
+        }
+        .btn-print {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h2>Ứng dụng tính tiền bán hàng</h2>
+    <form id="orderForm">
+        <table>
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Tên hàng hóa</th>
+                    <th>Số lượng có</th>
+                    <th>Số lượng mua</th>
+                    <th>Đơn giá</th>
+                    <th>Chọn mua</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>CPU</td>
+                    <td>14</td>
+                    <td><input type="number" name="qty1" disabled></td>
+                    <td>120</td>
+                    <td><input type="checkbox" name="select1" onchange="toggleInput(1)"></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>HDD</td>
+                    <td>10</td>
+                    <td><input type="number" name="qty2" disabled></td>
+                    <td>80</td>
+                    <td><input type="checkbox" name="select2" onchange="toggleInput(2)"></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>RAM</td>
+                    <td>20</td>
+                    <td><input type="number" name="qty3" disabled></td>
+                    <td>29</td>
+                    <td><input type="checkbox" name="select3" onchange="toggleInput(3)"></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>ROM</td>
+                    <td>15</td>
+                    <td><input type="number" name="qty4" disabled></td>
+                    <td>50</td>
+                    <td><input type="checkbox" name="select4" onchange="toggleInput(4)"></td>
+                </tr>
+            </tbody>
+        </table>
+        <label>
+            <input type="checkbox" id="vat"> VAT (10%)
+        </label>
+        <br><br>
+        <button type="button" class="btn btn-ok" onclick="calculateTotal()">OK</button>
+        <button type="reset" class="btn btn-reset">Nhập lại</button>
+        <button type="button" class="btn btn-print" onclick="window.print()">In</button>
+    </form>
+    <h3>Tổng cộng: <span id="total">0</span></h3>
+
+    <script>
+        function toggleInput(index) {
+            const checkbox = document.querySelector(`[name="select${index}"]`);
+            const input = document.querySelector(`[name="qty${index}"]`);
+            input.disabled = !checkbox.checked;
+            if (!checkbox.checked) {
+                input.value = ""; // Clear input if unchecked
+            }
+        }
+
+        function calculateTotal() {
+            const rows = document.querySelectorAll("tbody tr");
+            let total = 0;
+
+            rows.forEach((row, index) => {
+                const checkbox = row.querySelector(`[name="select${index + 1}"]`);
+                const qtyInput = row.querySelector(`[name="qty${index + 1}"]`);
+                const price = parseFloat(row.cells[4].textContent);
+
+                if (checkbox.checked) {
+                    const qty = parseInt(qtyInput.value);
+                    if (!qty || qty <= 0) {
+                        alert(`Số lượng mua sản phẩm ${row.cells[1].textContent} không hợp lệ!`);
+                        return;
+                    }
+                    total += qty * price;
+                }
+            });
+
+            const vatCheckbox = document.getElementById("vat");
+            if (vatCheckbox.checked) {
+                total *= 1.1;
+            }
+
+            document.getElementById("total").textContent = total.toFixed(2);
+        }
+    </script>
+</body>
+</html>
